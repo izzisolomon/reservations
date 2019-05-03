@@ -4,6 +4,7 @@ import { Card, Button, Input } from 'react-native-elements'
 import reservations from "../data/reservations"
 import Reservation from '../data/types';
 import { NavigationScreenProp, NavigationParams } from 'react-navigation';
+import NewCard from '../components/new-reservation-card';
 
 interface Props {
     navigation: NavigationScreenProp<any, NavigationParams>;
@@ -66,24 +67,9 @@ export default class NewReservationScreen extends Component<Props, State> {
   }
 
   render() {
-
-    const { name, hotelName, arrivalDate, departureDate, id } = this.state.reservation;
     return (
       <View>
-        <Card
-            title={id ? "Modify Reservation" : "New Resrvation"}>
-            <Input value={name}
-            placeholder={"Reservation Name"} onChangeText={(text: String) => this.onChange("name", text)}/>
-            <Input value={hotelName}
-            placeholder={"Hotel Name"} onChangeText={(text: String) => this.onChange("hotelName", text)}/>
-            <Input value={arrivalDate}
-            placeholder={"Arrival Date"} onChangeText={(text: String) => this.onChange("arrivalDate", text)}/>
-            <Input value={departureDate}
-            placeholder={"Departure Date"} onChangeText={(text: String) => this.onChange("DepartureDate", text)}/>
-            <Button
-            disabled={this.checkDisabled()}
-            title={id ? 'Update' : 'Submit'} style={{ marginTop: 15 }} onPress={this.submit}/>
-        </Card>
+        <NewCard reservation={this.state.reservation} disabled={this.checkDisabled()} onChange={this.onChange} submit={this.submit}/>
       </View>
     );
   }

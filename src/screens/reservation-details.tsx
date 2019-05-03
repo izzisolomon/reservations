@@ -4,6 +4,7 @@ import { Card, Button } from 'react-native-elements'
 import reservations from "../data/reservations"
 import Reservation from '../data/types';
 import { NavigationScreenProp, NavigationParams } from 'react-navigation';
+import DetailsCard from '../components/reservation-details-card';
 
 interface Props {
     navigation: NavigationScreenProp<any, NavigationParams>;
@@ -39,20 +40,9 @@ export default class ReservationDetailsScreen extends Component<Props, State> {
         )
     }
 
-    const { name, hotelName, arrivalDate, departureDate } = reservation;
     return (
       <View>
-        <Card
-            title={name || "n/a"}>
-            <Text style={{alignSelf: "center", margin: 10 }}>
-                {hotelName || "n/a"}
-            </Text>
-            <Text style={{ padding: 10 }}>{`Arrival: ${arrivalDate || "n/a"}\n\nDeparture: ${departureDate || "n/a"}`}</Text>
-            <Button
-                onPress={()=> this.props.navigation.navigate("NewReservation", { reservation: reservation })}
-                buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                title='Modify Reservation' />
-        </Card>
+        <DetailsCard reservation={reservation} onPress={() => this.props.navigation.navigate("NewReservation", { reservation: reservation})}/>
       </View>
     );
   }
